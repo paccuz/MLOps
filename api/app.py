@@ -54,9 +54,9 @@ def predict():
             return jsonify({'error': 'Missing required fields in input data'}), 400
 
         df = pd.DataFrame([data])
-        prediction = model.predict(df)[0]  # Probability of class 1 (fraud)
+        prediction = float(model.predict(df)[0])  # Probability of class 1 (fraud)
         logging.info(f"Prediction: {prediction}")
-        is_fraud = prediction > 0.5
+        is_fraud = bool(prediction > 0.5)
 
         # Log prediction and input data for monitoring
         logging.info(f"Input data: {data}")
